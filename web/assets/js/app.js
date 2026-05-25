@@ -474,10 +474,26 @@ function setupEventListeners() {
 
   document.querySelectorAll('.filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
-      activeFilter = chip.dataset.filter;
-      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      clearOtherFilters();
+      // If "Todas" is clicked, reset everything including sidebar
+      if (chip.dataset.filter === 'all') {
+        activeFilter = 'all';
+        activePhase = null;
+        activePlatform = null;
+        activeRisk = null;
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        document.querySelectorAll('[data-phase]').forEach(b => { b.classList.remove('bg-[#21262d]','text-white'); });
+        document.querySelectorAll('[data-platform]').forEach(b => { b.classList.remove('bg-[#21262d]','text-white'); });
+        document.querySelectorAll('[data-risk]').forEach(b => { b.classList.remove('bg-[#21262d]','text-white'); });
+      } else {
+        // Toggle: same filter deselects, different filter selects
+        activeFilter = activeFilter === chip.dataset.filter ? 'all' : chip.dataset.filter;
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        const activeChip = activeFilter === 'all'
+          ? document.querySelector('[data-filter="all"]')
+          : chip;
+        activeChip.classList.add('active');
+      }
       renderNotes();
     });
   });
