@@ -8,7 +8,7 @@ const BRANCH = 'main';
 
 // ── State ───────────────────────────────────────────────────────────────────
 let allNotes = [];
-let activeFilter = 'all';
+let activeFilter = [];
 let activePhase = null;
 let activePlatform = null;
 let activeRisk = null;
@@ -339,7 +339,8 @@ function escapeHtml(str) {
 function getFiltered() {
   return allNotes.filter(n => {
     if (n.phase === 'meta' || n.phase === 'template') return false;
-    if (activeFilter !== 'all' && n.phase !== activeFilter) return false;
+    const chipFilters = activeFilter;
+    if (chipFilters.length > 0 && !chipFilters.includes(n.phase)) return false;
     if (activePhase   && n.phase    !== activePhase)     return false;
     if (activePlatform && !matchPlatform(n.platform, activePlatform)) return false;
     if (activeRisk    && n.risk     !== activeRisk)       return false;
@@ -416,7 +417,7 @@ function renderNotes() {
 
   if (detail.classList.contains('hidden') === false) return; // Don't overwrite open note
 
-  hero.classList.toggle('hidden', searchQuery || activePhase || activePlatform || activeRisk || activeFilter !== 'all');
+  hero.classList.toggle('hidden', searchQuery || activePhase || activePlatform || activeRisk || activeFilter.length > 0);
 
   const notes = getFiltered();
 
@@ -552,7 +553,7 @@ function setupEventListeners() {
     chip.addEventListener('click', () => {
       if (chip.dataset.filter === 'all') {
         // Reset everything
-        activeFilter = 'all';
+        activeFilter = [];
         activePhase = null;
         activePlatform = null;
         activeRisk = null;
@@ -562,17 +563,14 @@ function setupEventListeners() {
         syncTodasState();
         renderNotes();
       } else {
-        // Toggle chip — sidebar state is preserved (independent filters)
-        activeFilter = activeFilter === chip.dataset.filter ? 'all' : chip.dataset.filter;
-        clearChipActive();
-        if (activeFilter === 'all') {
-          document.querySelector('[data-filter="all"]').classList.add('active');
-        } else {
-          chip.classList.add('active');
-          const chipId = activeFilter;
-          const phaseBtn = document.querySelector(`button[data-phase="${chipId}"]`);
-          if (phaseBtn) phaseBtn.classList.add('bg-[#21262d]', 'text-white');
-        }
+        // Toggle this chip independently — sidebar stays untouched
+        chip.classList.toggle('active');
+
+        // Sync activeFilter array from DOM state
+        activeFilter = [...document.querySelectorAll('.filter-chip.active')]
+          .map(c => c.dataset.filter)
+          .filter(f => f !== 'all');
+
         syncTodasState();
         renderNotes();
       }
@@ -592,7 +590,7 @@ function clearSidebarActive() {
 
 // "Todas" chip is active only when nothing is filtered
 function syncTodasState() {
-  const isFiltered = activePhase || activePlatform || activeRisk || activeFilter !== 'all';
+  const isFiltered = activePhase || activePlatform || activeRisk || activeFilter.length > 0;
   const todas = document.querySelector('[data-filter="all"]');
   if (!todas) return;
   if (isFiltered) {
@@ -604,42 +602,34 @@ function syncTodasState() {
 
 function setPhase(phase) {
   activePhase = activePhase === phase ? null : phase;
-  clearChipActive();
-  activeFilter = 'all';
   clearSidebarActive();
-  syncTodasState();
   if (activePhase) {
     const btn = document.querySelector(`button[data-phase="${activePhase}"]`);
     if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
-    const chip = document.querySelector(`.filter-chip[data-filter="${activePhase}"]`);
-    if (chip) chip.classList.add('active');
   }
+  syncTodasState();
   renderNotes();
 }
 
 function setPlatform(plat) {
   activePlatform = activePlatform === plat ? null : plat;
-  clearChipActive();
-  activeFilter = 'all';
   clearSidebarActive();
-  syncTodasState();
   if (activePlatform) {
     const btn = document.querySelector(`button[data-platform="${activePlatform}"]`);
     if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
   }
+  syncTodasState();
   renderNotes();
 }
 
 function setRisk(risk) {
   activeRisk = activeRisk === risk ? null : risk;
-  clearChipActive();
-  activeFilter = 'all';
   clearSidebarActive();
-  syncTodasState();
   if (activeRisk) {
     const btn = document.querySelector(`button[data-risk="${activeRisk}"]`);
     if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
   }
+  syncTodasState();
   renderNotes();
 }
 
