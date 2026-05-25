@@ -289,9 +289,12 @@ function parseFrontmatter(raw, meta) {
 function renderMarkdown(md) {
   // Very lightweight markdown-to-HTML (avoid external deps)
   let html = md
-    // Code blocks
-    .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
-      `<pre><code class="lang-${lang}">${escapeHtml(code.trim())}</code></pre>`)
+  // Code blocks — wrap with copy button
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    const escaped = escapeHtml(code.trim());
+    const copyBtn = `<button class="copy-btn" onclick="copyCode(this)" title="Copy code">\u{1F4CB}</button>`;
+    return `<pre>${copyBtn}<code class="lang-${lang}">${escaped}</code></pre>`;
+  });
     // Inline code
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     // Headings
@@ -354,6 +357,54 @@ function matchPlatform(plat, filter) {
   if (!plat) return false;
   const p = Array.isArray(plat) ? plat : [plat];
   return p.some(x => x.toLowerCase().includes(filter.toLowerCase()));
+}
+
+// ── Related notes ──────────────────────────────────────────────────────────
+function findRelated(note) {
+  if (!note.tags) return fallbackByPhase(note);
+  const noteTags = note.tags.split(',').map(t => t.trim().toLowerCase());
+  if (noteTags.length === 0 || noteTags[0] === '') return fallbackByPhase(note);
+  const candidates = allNotes.filter(n =>
+    n.path !== note.path &&
+    n.tags &&
+    n.tags.split(',').some(t => noteTags.includes(t.trim().toLowerCase()))
+  );
+  return candidates.length > 0 ? candidates : fallbackByPhase(note);
+}
+
+function fallbackByPhase(note) {
+  return allNotes.filter(n => n.phase === note.phase && n.path !== note.path).slice(0, 3);
+}
+
+// ── Clipboard helpers ───────────────────────────────────────────────────────
+function copyCode(btn) {
+  const pre = btn.closest('pre');
+  const code = pre ? pre.querySelector('code') : null;
+  if (!code) return;
+  const text = code.innerText || code.textContent || '';
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '\u2713';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '\u{1F4CB}';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function copyNoteContent(noteRaw) {
+  if (!noteRaw) return;
+  navigator.clipboard.writeText(noteRaw).then(() => {
+    const btn = document.getElementById('copyGlobalBtn');
+    if (btn) {
+      btn.textContent = '\u2713 Copiado';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '\u{1F4CB} Copiar contenido';
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+  });
 }
 
 // ── Render ──────────────────────────────────────────────────────────────────
@@ -440,10 +491,17 @@ async function openNote(encodedPath) {
 }
 
 function renderNoteHTML(note) {
+  const relatedNotes = findRelated(note);
+  const relatedHtml = buildRelatedSection(relatedNotes);
   const fmHtml = `
+  <div class="note-header">
+    <h2 class="note-title text-xl font-bold text-[#f0f6fc]">${note.title}</h2>
+    <button id="copyGlobalBtn" class="copy-global-btn" onclick="copyNoteContent(\`${escapeJs(note.raw)}\`)">
+      \u{1F4CB} Copiar contenido
+    </button>
+  </div>
   <div class="frontmatter">
     <div class="frontmatter-grid">
-      ${note.title       ? `<div class="frontmatter-item"><span class="frontmatter-label">Title</span><span class="frontmatter-value">${note.title}</span></div>` : ''}
       ${note.phase       ? `<div class="frontmatter-item"><span class="frontmatter-label">Phase</span><span class="frontmatter-value phase-${note.phase}">${phaseLabel(note.phase)}</span></div>` : ''}
       ${note.platform    ? `<div class="frontmatter-item"><span class="frontmatter-label">Platform</span><span class="frontmatter-value capitalize">${Array.isArray(note.platform)?note.platform.join(', '):note.platform}</span></div>` : ''}
       ${note.risk        ? `<div class="frontmatter-item"><span class="frontmatter-label">Risk</span><span class="frontmatter-value risk-${note.risk} capitalize">${note.risk}</span></div>` : ''}
@@ -452,9 +510,27 @@ function renderNoteHTML(note) {
       ${note.data_sources ? `<div class="frontmatter-item"><span class="frontmatter-label">Data Sources</span><span class="frontmatter-value">${note.data_sources}</span></div>` : ''}
       ${note.last_review  ? `<div class="frontmatter-item"><span class="frontmatter-label">Last Review</span><span class="frontmatter-value">${note.last_review}</span></div>` : ''}
     </div>
-  </div>`;
+  </div>
+  ${renderMarkdown(note.body)}
+  ${relatedHtml}`;
 
-  return fmHtml + renderMarkdown(note.body);
+  return fmHtml;
+}
+
+function buildRelatedSection(notes) {
+  if (!notes || notes.length === 0) return '';
+  const cards = notes.map(n => `
+    <div class="related-card" onclick="openNote('${encodeURIComponent(n.path)}')">
+      <span class="tag-sm phase-${n.phase}">${phaseLabel(n.phase)}</span>
+      <span class="related-card-title">${n.title}</span>
+      <span class="related-card-snippet">${snippet(n.body, 80)}</span>
+    </div>
+  `).join('');
+  return `<div class="related-section"><h3>Notas relacionadas</h3><div class="related-grid">${cards}</div></div>`;
+}
+
+function escapeJs(str) {
+  return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
 }
 
 function closeNote() {
