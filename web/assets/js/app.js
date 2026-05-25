@@ -550,67 +550,88 @@ function setupEventListeners() {
 
   document.querySelectorAll('.filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
-      // If "Todas" is clicked, reset everything including sidebar
       if (chip.dataset.filter === 'all') {
+        // Reset everything
         activeFilter = 'all';
         activePhase = null;
         activePlatform = null;
         activeRisk = null;
-        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        document.querySelectorAll('[data-phase]').forEach(b => { b.classList.remove('bg-[#21262d]','text-white'); });
-        document.querySelectorAll('[data-platform]').forEach(b => { b.classList.remove('bg-[#21262d]','text-white'); });
-        document.querySelectorAll('[data-risk]').forEach(b => { b.classList.remove('bg-[#21262d]','text-white'); });
+        clearChipActive();
+        clearSidebarActive();
       } else {
-        // Toggle: same filter deselects, different filter selects
+        // Toggle chip selection — sidebar also follows
         activeFilter = activeFilter === chip.dataset.filter ? 'all' : chip.dataset.filter;
-        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-        const activeChip = activeFilter === 'all'
-          ? document.querySelector('[data-filter="all"]')
-          : chip;
-        activeChip.classList.add('active');
+        clearChipActive();
+        clearSidebarActive();
+        if (activeFilter === 'all') {
+          document.querySelector('[data-filter="all"]').classList.add('active');
+        } else {
+          chip.classList.add('active');
+          const chipId = activeFilter;
+          // Highlight matching sidebar button
+          const phaseBtn = document.querySelector(`[data-phase="${chipId}"]`);
+          if (phaseBtn) phaseBtn.classList.add('bg-[#21262d]', 'text-white');
+        }
       }
       renderNotes();
     });
   });
 }
 
+function clearChipActive() {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+}
+
+function clearSidebarActive() {
+  document.querySelectorAll('[data-phase]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+  document.querySelectorAll('[data-platform]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+  document.querySelectorAll('[data-risk]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+}
+
 function setPhase(phase) {
   activePhase = activePhase === phase ? null : phase;
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.filter === 'all');
-  });
+  clearChipActive();
   activeFilter = 'all';
-  document.querySelectorAll('[data-phase]').forEach(b => {
-    b.classList.toggle('bg-[#21262d]', b.dataset.phase === activePhase);
-    b.classList.toggle('text-white', b.dataset.phase === activePhase);
-  });
+  if (!activePhase) {
+    document.querySelector('[data-filter="all"]').classList.add('active');
+  }
+  clearSidebarActive();
+  if (activePhase) {
+    const btn = document.querySelector(`[data-phase="${activePhase}"]`);
+    if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
+    const chip = document.querySelector(`.filter-chip[data-filter="${activePhase}"]`);
+    if (chip) chip.classList.add('active');
+  }
   renderNotes();
 }
 
 function setPlatform(plat) {
   activePlatform = activePlatform === plat ? null : plat;
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.filter === 'all');
-  });
+  clearChipActive();
   activeFilter = 'all';
-  document.querySelectorAll('[data-platform]').forEach(b => {
-    b.classList.toggle('bg-[#21262d]', b.dataset.platform === activePlatform);
-    b.classList.toggle('text-white', b.dataset.platform === activePlatform);
-  });
+  if (!activePlatform) {
+    document.querySelector('[data-filter="all"]').classList.add('active');
+  }
+  clearSidebarActive();
+  if (activePlatform) {
+    const btn = document.querySelector(`[data-platform="${activePlatform}"]`);
+    if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
+  }
   renderNotes();
 }
 
 function setRisk(risk) {
   activeRisk = activeRisk === risk ? null : risk;
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.filter === 'all');
-  });
+  clearChipActive();
   activeFilter = 'all';
-  document.querySelectorAll('[data-risk]').forEach(b => {
-    b.classList.toggle('bg-[#21262d]', b.dataset.risk === activeRisk);
-    b.classList.toggle('text-white', b.dataset.risk === activeRisk);
-  });
+  if (!activeRisk) {
+    document.querySelector('[data-filter="all"]').classList.add('active');
+  }
+  clearSidebarActive();
+  if (activeRisk) {
+    const btn = document.querySelector(`[data-risk="${activeRisk}"]`);
+    if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
+  }
   renderNotes();
 }
 
