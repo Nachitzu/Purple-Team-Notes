@@ -97,7 +97,6 @@ async function buildSidebar() {
 async function loadAllNotes() {
   // Directory -> file list
   const dirs = [
-    '00-template',
     '01-recon',
     '02-exploracion',
     '03-explotacion',
@@ -339,6 +338,8 @@ function escapeHtml(str) {
 function getFiltered() {
   return allNotes.filter(n => {
     if (n.phase === 'meta' || n.phase === 'template') return false;
+    const validPhases = PHASES.map(p => p.id);
+    if (!n.phase || !validPhases.includes(n.phase)) return false;
     const chipFilters = activeFilter;
     if (chipFilters.length > 0 && !chipFilters.includes(n.phase)) return false;
     if (activePhase   && n.phase    !== activePhase)     return false;
