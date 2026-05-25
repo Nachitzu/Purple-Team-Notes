@@ -1,0 +1,155 @@
+/* ─── Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+/* ─── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #484f58; }
+
+/* ─── Typography ───────────────────────────────────────── */
+h1, h2, h3 { font-family: 'Inter', sans-serif; }
+code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ─── Cards ───────────────────────────────────────────── */
+.note-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s, background 0.15s;
+}
+.note-card:hover {
+  border-color: #6e7681;
+  transform: translateY(-1px);
+  background: #1c2128;
+}
+.note-card.active { border-color: #8957e5; }
+
+/* ─── Tags ────────────────────────────────────────────── */
+.tag { display: inline-flex; align-items: center; }
+.tag-sm {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Phase color bands */
+.phase-recon       { background: #1a3a1a; color: #4ade80; border: 1px solid #166534; }
+.phase-exploracion { background: #1a2a1a; color: #86efac; border: 1px solid #22543d; }
+.phase-explotacion { background: #3a1a1a; color: #f87171; border: 1px solid #991b1b; }
+.phase-post-explotacion { background: #2a1a3a; color: #c084fc; border: 1px solid #6b21a8; }
+.phase-blue-team   { background: #1a2a3a; color: #60a5fa; border: 1px solid #1e40af; }
+.phase-oneliners   { background: #2a3a1a; color: #a3e635; border: 1px solid #4d7c0f; }
+.phase-tools       { background: #3a2a1a; color: #fbbf24; border: 1px solid #92400e; }
+.phase-threat-intel { background: #1a3a2a; color: #34d399; border: 1px solid #065f46; }
+.phase-purple-exercises { background: #2a1a2a; color: #e879f9; border: 1px solid #7e22ce; }
+.phase-attack-mapping { background: #3a1a2a; color: #fb7185; border: 1px solid #be123c; }
+.phase-template    { background: #1a1a2a; color: #94a3b8; border: 1px solid #334155; }
+.phase-notes       { background: #1a1a1a; color: #9ca3af; border: 1px solid #374151; }
+
+/* Risk badges */
+.risk-critical { background: #7f1d1d; color: #fca5a5; }
+.risk-high     { background: #92400e; color: #fcd34d; }
+.risk-medium   { background: #713f12; color: #fde68a; }
+.risk-low      { background: #14532d; color: #86efac; }
+
+/* ─── Filter chips ────────────────────────────────────── */
+.filter-chip {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid #30363d;
+  background: #161b22;
+  color: #8b949e;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-chip:hover { border-color: #6e7681; color: #c9d1d9; }
+.filter-chip.active { background: #6e40c9; border-color: #8957e5; color: #fff; }
+
+/* ─── Prose (markdown rendered) ─────────────────────── */
+.prose { color: #e6edf3; line-height: 1.75; font-size: 15px; }
+.prose h1 { font-size: 1.75rem; font-weight: 700; margin: 1.5em 0 0.75em; color: #f0f6fc; border-bottom: 1px solid #30363d; padding-bottom: 0.5em; }
+.prose h2 { font-size: 1.35rem; font-weight: 600; margin: 1.5em 0 0.5em; color: #f0f6fc; }
+.prose h3 { font-size: 1.1rem; font-weight: 600; margin: 1.25em 0 0.4em; color: #e6edf3; }
+.prose p  { margin: 0.75em 0; }
+.prose ul, .prose ol { margin: 0.75em 0; padding-left: 1.5em; }
+.prose li { margin: 0.3em 0; }
+.prose code {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+  color: #e879f9;
+}
+.prose pre {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #79c0ff;
+  font-size: 0.875em;
+}
+.prose strong { color: #f0f6fc; font-weight: 600; }
+.prose em { color: #ffa657; }
+.prose a { color: #58a6ff; text-decoration: underline; }
+.prose blockquote {
+  border-left: 3px solid #30363d;
+  padding-left: 1em;
+  color: #8b949e;
+  font-style: italic;
+  margin: 1em 0;
+}
+.prose table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+.prose th { background: #21262d; padding: 6px 12px; border: 1px solid #30363d; text-align: left; font-size: 0.85em; color: #8b949e; }
+.prose td { padding: 6px 12px; border: 1px solid #30363d; }
+.prose tr:nth-child(even) td { background: #161b22; }
+
+/* ─── Frontmatter block ───────────────────────────────── */
+.frontmatter {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 1.5em;
+  font-size: 13px;
+}
+.frontmatter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+.frontmatter-item { display: flex; flex-direction: column; gap: 2px; }
+.frontmatter-label { font-size: 10px; text-transform: uppercase; color: #6e7681; letter-spacing: 0.05em; font-weight: 600; }
+.frontmatter-value { color: #e6edf3; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+/* ─── Light mode overrides ────────────────────────────── */
+html:not(.dark) { }
+html:not(.dark) body { background: #f0f6fc; color: #24292f; }
+html:not(.dark) header { background: #f0f6fc; border-color: #d0d7de; }
+html:not(.dark) h1, html:not(.dark) h2, html:not(.dark) h3 { color: #24292f; }
+html:not(.dark) .note-card { background: #fff; border-color: #d0d7de; }
+html:not(.dark) .note-card:hover { background: #f6f8fa; }
+html:not(.dark) .prose { color: #24292f; }
+html:not(.dark) .prose h1, html:not(.dark) .prose h2, html:not(.dark) .prose h3 { color: #24292f; }
+html:not(.dark) .prose strong { color: #24292f; }
+html:not(.dark) .prose pre { background: #f6f8fa; }
+html:not(.dark) .prose code { background: #f0f6fc; border-color: #d0d7de; }
+html:not(.dark) .prose pre code { background: none; color: #0550ae; }
+html:not(.dark) .prose blockquote { color: #57606a; border-color: #d0d7de; }
+html:not(.dark) .prose th { background: #f6f8fa; border-color: #d0d7de; color: #57606a; }
+html:not(.dark) .prose td { border-color: #d0d7de; }
+html:not(.dark) .prose tr:nth-child(even) td { background: #f6f8fa; }
+html:not(.dark) .frontmatter { background: #f6f8fa; border-color: #d0d7de; }
+html:not(.dark) .frontmatter-label { color: #57606a; }
+html:not(.dark) .frontmatter-value { color: #24292f; }
+html:not(.dark) .tag-sm { filter: brightness(0.9); }
