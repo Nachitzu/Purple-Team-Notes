@@ -558,22 +558,24 @@ function setupEventListeners() {
         activeRisk = null;
         clearChipActive();
         clearSidebarActive();
+        chip.classList.add('active');
+        syncTodasState();
+        renderNotes();
       } else {
-        // Toggle chip selection — sidebar also follows
+        // Toggle chip — sidebar state is preserved (independent filters)
         activeFilter = activeFilter === chip.dataset.filter ? 'all' : chip.dataset.filter;
         clearChipActive();
-        clearSidebarActive();
         if (activeFilter === 'all') {
           document.querySelector('[data-filter="all"]').classList.add('active');
         } else {
           chip.classList.add('active');
           const chipId = activeFilter;
-          // Highlight matching sidebar button
-          const phaseBtn = document.querySelector(`[data-phase="${chipId}"]`);
+          const phaseBtn = document.querySelector(`button[data-phase="${chipId}"]`);
           if (phaseBtn) phaseBtn.classList.add('bg-[#21262d]', 'text-white');
         }
+        syncTodasState();
+        renderNotes();
       }
-      renderNotes();
     });
   });
 }
@@ -583,21 +585,31 @@ function clearChipActive() {
 }
 
 function clearSidebarActive() {
-  document.querySelectorAll('[data-phase]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
-  document.querySelectorAll('[data-platform]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
-  document.querySelectorAll('[data-risk]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+  document.querySelectorAll('button[data-phase]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+  document.querySelectorAll('button[data-platform]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+  document.querySelectorAll('button[data-risk]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+}
+
+// "Todas" chip is active only when nothing is filtered
+function syncTodasState() {
+  const isFiltered = activePhase || activePlatform || activeRisk || activeFilter !== 'all';
+  const todas = document.querySelector('[data-filter="all"]');
+  if (!todas) return;
+  if (isFiltered) {
+    todas.classList.remove('active');
+  } else {
+    todas.classList.add('active');
+  }
 }
 
 function setPhase(phase) {
   activePhase = activePhase === phase ? null : phase;
   clearChipActive();
   activeFilter = 'all';
-  if (!activePhase) {
-    document.querySelector('[data-filter="all"]').classList.add('active');
-  }
   clearSidebarActive();
+  syncTodasState();
   if (activePhase) {
-    const btn = document.querySelector(`[data-phase="${activePhase}"]`);
+    const btn = document.querySelector(`button[data-phase="${activePhase}"]`);
     if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
     const chip = document.querySelector(`.filter-chip[data-filter="${activePhase}"]`);
     if (chip) chip.classList.add('active');
@@ -609,12 +621,10 @@ function setPlatform(plat) {
   activePlatform = activePlatform === plat ? null : plat;
   clearChipActive();
   activeFilter = 'all';
-  if (!activePlatform) {
-    document.querySelector('[data-filter="all"]').classList.add('active');
-  }
   clearSidebarActive();
+  syncTodasState();
   if (activePlatform) {
-    const btn = document.querySelector(`[data-platform="${activePlatform}"]`);
+    const btn = document.querySelector(`button[data-platform="${activePlatform}"]`);
     if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
   }
   renderNotes();
@@ -624,12 +634,10 @@ function setRisk(risk) {
   activeRisk = activeRisk === risk ? null : risk;
   clearChipActive();
   activeFilter = 'all';
-  if (!activeRisk) {
-    document.querySelector('[data-filter="all"]').classList.add('active');
-  }
   clearSidebarActive();
+  syncTodasState();
   if (activeRisk) {
-    const btn = document.querySelector(`[data-risk="${activeRisk}"]`);
+    const btn = document.querySelector(`button[data-risk="${activeRisk}"]`);
     if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
   }
   renderNotes();
