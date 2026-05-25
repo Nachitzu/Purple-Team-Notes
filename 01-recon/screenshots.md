@@ -49,7 +49,7 @@ ls *.png | for i in *.png; do echo "$i"; done
 ### One-liners
 
 ```bash
-# screenshots de IPs con手上的aquatone para port 80/443
+# screenshots de IPs con aquatone para port 80/443
 cat alive-ips.txt | aquatone - Ports-TCP 80,443 -out screenshots/
 
 # screenshot de login pages con eyewitness

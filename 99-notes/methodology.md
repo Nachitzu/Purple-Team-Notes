@@ -24,7 +24,7 @@ Establecer los principios fondamentamentales y metodología que guían todo el r
 
 3. **MITRE ATT&CK como lenguaje común** — Toda técnica se mapea a ATT&CK para permitir conversación estructurada entre equipos.
 
-4. **Lab-validated** — Los comandos deben probarse en laboratorio autorizado antes de incluirse. Marqu明的como "borrador" los no probados.
+4. **Lab-validated** — Los comandos deben probarse en laboratorio autorizado antes de incluirse. Marcar como "borrador" los no probados.
 
 5. **Mantener y hacer crecer** — El repositorio es vivo. Después de cada ejercicio, cada detección exitosa o fallida, actualizar las notas correspondientes.
 
@@ -74,7 +74,7 @@ Para cada cheatsheet:
 [ ] Frontmatter con todos los campos requeridos
 [ ] Sección de requisitos previos
 [ ] Comandos probados o marcados como draft
-[ ] Sección de detección关联
+[ ] Sección de detección asociada
 [ ] Referencias a ATT&CK y data sources
 [ ] Última revisión feta
 ```

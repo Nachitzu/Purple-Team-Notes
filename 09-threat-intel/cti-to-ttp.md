@@ -31,7 +31,7 @@ Metodología para convertir reportes de Threat Intelligence (CTI) en TTPs accion
 ### Framework de Mapeo
 
 ```
-Kill Chain段階 → ATT&CK Tactic → ATT&CK Technique
+Kill Chain etapa → ATT&CK Tactic → ATT&CK Technique
 
 Reconn → TA0043 (Reconnaissance)
 Weaponize → TA0002 (Execution), TA0003 (Persistence)
@@ -47,7 +47,7 @@ Actions → TA0010 (Exfiltration)
 # APT29 usando Spear-phishing con attachment malicioso
 # Attachment ejecuta macro que descargar Beacon
 
-Kill chain映射:
+Kill chain mapeo:
 Deliver: T1566.001 (Spearphishing Attachment)
 Execution: T1059.003 (Windows Command Shell via macro)
 C2: T1090 (Proxy)
@@ -65,7 +65,7 @@ IOCs:
 Detection Rule:
   name: APT29 Macro Download
   technique: T1059.003
-  источник: sysmon EventID 1
+  source: sysmon EventID 1
   hypothesis: "Office process spawning powershell with downloadstring"
   status: Experimental
 
@@ -95,6 +95,6 @@ Exercise:
 
 Priorize CTI-driven TTPs by:
 - Relevance to your industry/organization
-- Active exploitation in your sector (西门子,卫生)
+- Active exploitation in your sector
 - Existing coverage (do you already have detection?)
 - Feasibility (can you emulate/test it?)

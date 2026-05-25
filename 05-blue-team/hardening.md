@@ -25,7 +25,7 @@ Get-LocalUser | Where-Object { $_.Enabled -eq $true -and $_.Description -like '*
 # Set strong password policy
 net accounts /minpwlen:14 /maxpwage:90 /minpwage:1
 
-# Audit local Admin组成员
+# Audit local Admin group members
 Get-LocalGroupMember -Group "Administrators"
 
 # Remove guest account

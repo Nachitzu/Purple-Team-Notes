@@ -79,7 +79,7 @@ OPPORTUNITY:
 ### Collecting Intelligence
 
 ```bash
-# MITRE ATT&CK Groups页面
+# MITRE ATT&CK Groups page
 # https://attack.mitre.org/groups/
 
 # Vendor reports (CrowdStrike, FireEye/Mandiant, Palo Alto Unit 42)

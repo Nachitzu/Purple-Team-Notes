@@ -68,7 +68,7 @@ attackcti get_tactics
 attackcti get_techniques_by_mitigation("M1050")
 ```
 
-### Cobertura矩阵
+### Coverage Matrix
 
 Para crear una coverage matrix:
 

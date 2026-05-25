@@ -14,7 +14,7 @@ last_review: 2026-05-25
 
 ### Objetivo
 
-Manipulación eficiente de JSON desde命令行 para procesamiento de datos de logs, APIs, y archivos estructurados.
+Manipulación eficiente de JSON desde línea de comandos para procesamiento de datos de logs, APIs, y archivos estructurados.
 
 ### Basics
 

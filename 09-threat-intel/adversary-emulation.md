@@ -65,7 +65,7 @@ Criteria:
 python agent.py --ip 10.0.0.1 --port 7770
 
 # MITRE ATT&CK Workbench
-#自定义 adversary profile
+# Custom adversary profile
 
 # Endgame RTA (Ruby scripts)
 git clone https://github.com/endgameinc/RTA.git

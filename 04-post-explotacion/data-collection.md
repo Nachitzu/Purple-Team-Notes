@@ -14,7 +14,7 @@ last_review: 2026-05-25
 
 ### Objetivo
 
-Identificar, сборка y exfiltrar datos sensibles desde sistemas comprometidos.
+Identificar, recopilar y exfiltrar datos sensibles desde sistemas comprometidos.
 
 ### Staging en objetivo
 

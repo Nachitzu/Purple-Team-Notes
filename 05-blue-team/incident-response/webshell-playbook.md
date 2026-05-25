@@ -54,7 +54,7 @@ Get-Process | Where-Object { $_.Parent.ProcessName -in @('w3wp.exe','httpd.exe',
 - **Files:** Hidden in web root, double extension (shell.php.jpg)
 - **Logs:** POST to webshell, suspicious User-Agent, outbound connections
 - **Process:** web server process spawning cmd.exe/powershell.exe/bash
-- **Registry:** autorun persistence via COM劫持
+- **Registry:** autorun persistence via COM hijacking
 
 ### Response Steps
 

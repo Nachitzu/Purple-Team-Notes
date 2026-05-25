@@ -21,9 +21,9 @@ Definir métricas para medir la madurez del programa de seguridad offensivo y de
 | Level | Capability |
 |-------|------------|
 | 0 | No detection capability for this technique |
-| 1 | System artifacts保全 ( logs) but no active alerting |
-| 2 | Basic alerting on técnica genérica |
-| 3 | Ad alta Fidelidad, context-rich alert |
+| 1 | System artifacts preserved (logs) but no active alerting |
+| 2 | Basic alerting on generic technique |
+| 3 | High fidelity, context-rich alert |
 | 4 | full chain detection (kill chain completo) |
 
 ### Key Metrics

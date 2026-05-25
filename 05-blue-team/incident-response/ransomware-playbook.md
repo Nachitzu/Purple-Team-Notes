@@ -16,7 +16,7 @@ last_review: 2026-05-25
 
 Respuesta inmediata y estructurada ante un incidente de ransomware para minimizar impacto y preservar evidencia.
 
-### FASE 1: Detección y确认
+### FASE 1: Detección y Confirmación
 
 **Indicadores comunes:**
 - Archivos .encrypted, .locked, .crypto extension

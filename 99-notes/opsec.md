@@ -71,7 +71,7 @@ macchanger -r eth0
 # Blue team knowledge of Red Team IOCs debe remain confidential
 # Don't document exact Red Team infrastructure (could leak via finding)
 # Don't share IOCs outside of secure communication channel
-# Alert thresholds should not be сообщены to Red Team pre-exercise
+# Alert thresholds should not be communicated to Red Team pre-exercise
 ```
 
 ### Indicator Management

@@ -79,7 +79,7 @@ python wmiexec.py domain/user:password@target "whoami"
 ### Detección y Mitigación
 
 - **Visibilidad:** Security Event 4624 (lateral movement with RDP/WMI), 4688 (new process via remote session), Sysmon EID 3 (SMB connection).
-- **Hardening:** Disable WMИ, limit admin shares, NLA for RDP, restrict remote RPC, implement network segmentation.
+- **Hardening:** Disable WMI, limit admin shares, NLA for RDP, restrict remote RPC, implement network segmentation.
 
 ### Validación de Cobertura
 

@@ -77,7 +77,7 @@ netexec smb target -u user -p pass --continue-on-success | grep -E "Signing: Fal
 ### Detección y Mitigación
 
 - **Visibilidad:** Security Event 4624 (logon), 4688 (process creation), 4672 (special privileges), network SMB connections.
-- **Hardening:** Enable SMB signing, limit admin logons from specific hosts, NLA, disable万股 admin shares.
+- **Hardening:** Enable SMB signing, limit admin logons from specific hosts, NLA, disable admin shares.
 
 ### Validación de Cobertura
 

@@ -14,7 +14,7 @@ last_review: 2026-05-25
 
 ### Objetivo
 
-Extraer y reutilizar credenciales de sistemas comprometidos para垂直 y lateral movement.
+Extraer y reutilizar credenciales de sistemas comprometidos para movimiento vertical y lateral.
 
 ### Requisitos previos
 
@@ -78,7 +78,7 @@ Artefactos e Indicadores
 ### Detección y Mitigación
 
 - **Visibilidad:** Monitorear proceso accediendo a LSASS (Sysmon EID 10 con targetimage=lsass.exe), crear alertas por acceso a SAM/SYSTEM registry.
-- **Hardening:** Habilitar Credential Guard, 防aguir LSASS como protected process, deshabilitar WDigest, restrict NT LM hash.
+- **Hardening:** Habilitar Credential Guard, proteger LSASS como protected process, deshabilitar WDigest, restrict NT LM hash.
 
 ### Validación de Cobertura
 

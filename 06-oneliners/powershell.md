@@ -46,7 +46,7 @@ Get-ChildItem C:\\ -Recurse -Filter *.txt -ErrorAction SilentlyContinue | Select
 # enumerar servicios
 Get-Service | Where-Object {$_.Status -eq 'Running'}
 
-# extraer servicios con rutas no padrão
+# extraer servicios con rutas no estandar
 Get-WmiObject win32_service | Where-Object { $_.PathName -notmatch 'C:\\Windows' } | Select-Object Name, PathName
 
 # DNS resolution

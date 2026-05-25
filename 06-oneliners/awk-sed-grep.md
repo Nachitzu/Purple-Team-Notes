@@ -14,7 +14,7 @@ last_review: 2026-05-25
 
 ### Objetivo
 
-Procesamiento rápido de文本 peratore para análisis de logs, parsing, y transformación.
+Procesamiento rápido de texto desde terminal para análisis de logs, parsing, y transformación.
 
 ### GREP
 

@@ -90,7 +90,7 @@ curl "http://target.com/?page=expect://whoami"
 ### Detección y Mitigación
 
 - **Visibilidad:** Monitor web logs for path traversal patterns, /proc/self access, wrappers usage.
-- **Hardening:** Disable allow_url_include, use whitelist for file inclusion, sanitize inputs, disable危险 wrappers.
+- **Hardening:** Disable allow_url_include, use whitelist for file inclusion, sanitize inputs, disable dangerous wrappers.
 
 ### Validación de Cobertura
 

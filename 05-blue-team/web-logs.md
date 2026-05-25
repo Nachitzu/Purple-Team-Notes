@@ -67,7 +67,7 @@ jq '.AccessedURL, .ClientIP, .SecurityRule' cf_logs.json
 ### One-liners
 
 ```bash
-# Find IPs hitting 404 repeatedly (可能的 dirbusting)
+# Find IPs hitting 404 repeatedly (possible dirbusting)
 awk '{if ($9==404) print $1}' access.log | sort | uniq -c | sort -rn | head -10
 
 # Scanner detection

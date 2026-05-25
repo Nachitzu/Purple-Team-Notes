@@ -20,7 +20,7 @@ Consideraciones de gobernanza, regulatory requirements, y legal framework para e
 
 ```
 MANDATORY before any offensive activity:
-[ ] Written scope authorization from владелец assets
+[ ] Written scope authorization from asset owner
 [ ] Legal review of assessment scope
 [ ] Rules of Engagement document explicitly limits impact
 [ ] Kill switches defined and tested
