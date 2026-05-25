@@ -501,7 +501,10 @@ function setupEventListeners() {
 
 function setPhase(phase) {
   activePhase = activePhase === phase ? null : phase;
-  clearOtherFilters();
+  document.querySelectorAll('.filter-chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.filter === 'all');
+  });
+  activeFilter = 'all';
   document.querySelectorAll('[data-phase]').forEach(b => {
     b.classList.toggle('bg-[#21262d]', b.dataset.phase === activePhase);
     b.classList.toggle('text-white', b.dataset.phase === activePhase);
@@ -511,7 +514,10 @@ function setPhase(phase) {
 
 function setPlatform(plat) {
   activePlatform = activePlatform === plat ? null : plat;
-  clearOtherFilters();
+  document.querySelectorAll('.filter-chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.filter === 'all');
+  });
+  activeFilter = 'all';
   document.querySelectorAll('[data-platform]').forEach(b => {
     b.classList.toggle('bg-[#21262d]', b.dataset.platform === activePlatform);
     b.classList.toggle('text-white', b.dataset.platform === activePlatform);
@@ -521,7 +527,10 @@ function setPlatform(plat) {
 
 function setRisk(risk) {
   activeRisk = activeRisk === risk ? null : risk;
-  clearOtherFilters();
+  document.querySelectorAll('.filter-chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.filter === 'all');
+  });
+  activeFilter = 'all';
   document.querySelectorAll('[data-risk]').forEach(b => {
     b.classList.toggle('bg-[#21262d]', b.dataset.risk === activeRisk);
     b.classList.toggle('text-white', b.dataset.risk === activeRisk);
