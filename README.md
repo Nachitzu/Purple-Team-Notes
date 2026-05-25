@@ -2,6 +2,9 @@
 
 Repositorio centralizado de cheatsheets en Markdown para operaciones de red team, blue team y ejercicios purple team. El contenido está organizado por fase, tecnología, plataforma y caso de uso para facilitar la búsqueda y ejecución rápida.
 
+## Vista
+https://nachitzu.github.io/Purple-Team-Notes/
+
 ### Objetivo
 
 Proveer una base de conocimiento mantenible, operativa y reutilizable. El enfoque principal es conectar la visibilidad defensiva con la ejecución ofensiva, asegurando que cada técnica tenga una contramedida o método de detección asociado.
