@@ -255,3 +255,17 @@ html:not(.dark) .copy-global-btn:hover { border-color: #0969da; color: #0969da; 
 html:not(.dark) .related-section { border-color: #d0d7de; }
 html:not(.dark) .copy-btn { background: #f6f8fa; border-color: #d0d7de; color: #57606a; }
 html:not(.dark) .copy-btn:hover { border-color: #0969da; color: #0969da; }
+
+/* ─── Sidebar links ─────────────────────────────────── */
+.sidebar-link {
+  color: #8b949e;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-link:hover { background: #161b22; color: #c9d1d9; }
+.sidebar-link.active { background: #21262d; color: #ffffff; }
+
+/* ─── Light mode sidebar ───────────────────────────── */
+html:not(.dark) #sidebar { background: #ffffff; border-color: #d0d7de; }
+html:not(.dark) .sidebar-link { color: #57606a; }
+html:not(.dark) .sidebar-link:hover { background: #f6f8fa; color: #24292f; }
+html:not(.dark) .sidebar-link.active { background: #eaeef2; color: #24292f; }

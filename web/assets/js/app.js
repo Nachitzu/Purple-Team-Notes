@@ -584,9 +584,7 @@ function clearChipActive() {
 }
 
 function clearSidebarActive() {
-  document.querySelectorAll('button[data-phase]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
-  document.querySelectorAll('button[data-platform]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
-  document.querySelectorAll('button[data-risk]').forEach(b => { b.classList.remove('bg-[#21262d]', 'text-white'); });
+  document.querySelectorAll('button[data-phase], button[data-platform], button[data-risk]').forEach(b => b.classList.remove('active'));
 }
 
 // "Todas" chip is active only when nothing is filtered
@@ -606,7 +604,7 @@ function setPhase(phase) {
   clearSidebarActive();
   if (activePhase) {
     const btn = document.querySelector(`button[data-phase="${activePhase}"]`);
-    if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
+    if (btn) btn.classList.add('active');
   }
   syncTodasState();
   renderNotes();
@@ -617,7 +615,7 @@ function setPlatform(plat) {
   clearSidebarActive();
   if (activePlatform) {
     const btn = document.querySelector(`button[data-platform="${activePlatform}"]`);
-    if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
+    if (btn) btn.classList.add('active');
   }
   syncTodasState();
   renderNotes();
@@ -628,7 +626,7 @@ function setRisk(risk) {
   clearSidebarActive();
   if (activeRisk) {
     const btn = document.querySelector(`button[data-risk="${activeRisk}"]`);
-    if (btn) btn.classList.add('bg-[#21262d]', 'text-white');
+    if (btn) btn.classList.add('active');
   }
   syncTodasState();
   renderNotes();
