@@ -289,12 +289,12 @@ function parseFrontmatter(raw, meta) {
 function renderMarkdown(md) {
   // Very lightweight markdown-to-HTML (avoid external deps)
   let html = md
-  // Code blocks — wrap with copy button
-  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    const escaped = escapeHtml(code.trim());
-    const copyBtn = `<button class="copy-btn" onclick="copyCode(this)" title="Copy code">\u{1F4CB}</button>`;
-    return `<pre>${copyBtn}<code class="lang-${lang}">${escaped}</code></pre>`;
-  });
+    // Code blocks — wrap with copy button
+    .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+      const escaped = escapeHtml(code.trim());
+      const copyBtn = `<button class="copy-btn" onclick="copyCode(this)" title="Copy code">\u{1F4CB}</button>`;
+      return `<pre>${copyBtn}<code class="lang-${lang}">${escaped}</code></pre>`;
+    })
     // Inline code
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     // Headings
